@@ -1,0 +1,83 @@
+.login-container {
+  background-color: #1f1e20;
+  height: 100dvh;
+  width: 100dvw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  user-select: none;
+}
+
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 400px;
+  height: 400px;
+  background-color: #332e57;
+  color: #f2f2f2;
+  padding: 16px;
+  border-radius: 50px;
+  box-shadow: 10px 10px 20px 0px #000;
+}
+@media only screen and (max-width: 480px) {
+  .login {
+    width: 85%;
+  }
+}
+
+.login > * {
+  margin-bottom: 1.5rem;
+  width: 80%;
+}
+@media only screen and (max-width: 480px) {
+  .login > * {
+    width: 90%;
+  }
+}
+
+.login > h1 {
+  letter-spacing: 1px;
+}
+@media only screen and (max-width: 480px) {
+  .login > h1 {
+    text-align: center;
+  }
+}
+
+.login > input {
+  padding: 10px 5px;
+  font-size: 1rem;
+}
+
+.login > button {
+  max-width: 300px;
+  padding: 10px;
+  font-size: 1.2rem;
+  background-color: #37378d;
+  color: #f2f2f2;
+  border-radius: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+@media only screen and (max-width: 480px) {
+  .login > button {
+    font-size: 1rem;
+  }
+}
+
+.login > button:last-child {
+  background-color: #332e57;
+  border: none;
+  margin-bottom: 0;
+}
+
+.login > button:hover {
+  background-color: #252425;
+  transition: 1s;
+}
+
+/*# sourceMappingURL=login.css.map */

@@ -1,0 +1,73 @@
+@import "partials/variables";
+@import "partials/mixins";
+@import "partials/breakpoints";
+
+.login-container {
+  background-color: $negro;
+  height: 100dvh;
+  width: 100dvw;
+  @include centrar-todo;
+  flex-direction: column;
+  user-select: none;
+}
+
+.login {
+  @include centrar-todo;
+  flex-direction: column;
+  width: 400px;
+  height: 400px;
+  background-color: $violeta-espacio;
+  color: $blanco;
+  padding: 16px;
+  border-radius: 50px;
+  box-shadow: 10px 10px 20px 0px #000;
+  @include display-small {
+    width: 85%;
+  }
+}
+
+.login > * {
+  margin-bottom: 1.5rem;
+  width: 80%;
+  @include display-small {
+    width: 90%;
+  }
+}
+
+.login > h1 {
+  letter-spacing: 1px;
+  @include display-small {
+    text-align: center;
+  }
+}
+
+.login > input {
+  padding: 10px 5px;
+  font-size: 1rem;
+}
+
+.login > button {
+  max-width: 300px;
+  padding: 10px;
+  font-size: 1.2rem;
+  background-color: $azul;
+  color: $blanco;
+  border-radius: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  letter-spacing: 1px;
+  @include display-small {
+    font-size: 1rem;
+  }
+}
+
+.login > button:last-child {
+  background-color: $violeta-espacio;
+  border: none;
+  margin-bottom: 0;
+}
+
+.login > button:hover {
+  background-color: $gris;
+  transition: 1s;
+}
