@@ -5,9 +5,8 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import Login from "./components/Login";
-import Alumnado from "./components/Alumnado";
-import ProtectedRoute from "./components/ProtectedRoute";
+import Login from "./components/LoginPage";
+import AlumnadoPage from "./components/alumnado/AlumnadoPage";
 import { AuthProvider } from "./context/AuthProvider";
 import "./css/App.css";
 
@@ -18,7 +17,7 @@ function App() {
     <AuthProvider>
       <Router>
         <Routes>
-          {/* Ruta inicial: redirige a Login si no hay rol */}
+          {/* Ruta inicial: Login */}
           <Route
             path="/"
             element={
@@ -29,23 +28,11 @@ function App() {
               )
             }
           />
-
-          {/* Ruta protegida para Alumnado */}
+          {/* Ruta protegida: Alumnado */}
           <Route
             path="/alumnado"
-            element={
-              role ? (
-                <ProtectedRoute role={role}>
-                  <Alumnado />
-                </ProtectedRoute>
-              ) : (
-                <Navigate to="/" replace />
-              )
-            }
+            element={role ? <AlumnadoPage role={role} /> : <Navigate to="/" />}
           />
-
-          {/* Redirigir cualquier ruta desconocida al login */}
-          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
     </AuthProvider>

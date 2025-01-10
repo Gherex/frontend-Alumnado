@@ -1,0 +1,29 @@
+@import "partials/variables";
+@import "partials/mixins";
+@import "partials/breakpoints";
+
+.alumnado-container {
+  width: 100dvw;
+  height: 100dvh;
+  background-color: $negro;
+  color: $blanco;
+}
+
+.lista-de-tablas {
+  padding: 1rem;
+}
+
+.lista-de-tablas ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  list-style: none;
+}
+
+.lista-de-tablas ul li button {
+  background-color: $azul;
+  padding: 1rem;
+  border: none;
+  color: $blanco;
+  cursor: pointer;
+}

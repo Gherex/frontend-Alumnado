@@ -1,0 +1,27 @@
+.alumnado-container {
+  width: 100dvw;
+  height: 100dvh;
+  background-color: #1f1e20;
+  color: #f2f2f2;
+}
+
+.lista-de-tablas {
+  padding: 1rem;
+}
+
+.lista-de-tablas ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  list-style: none;
+}
+
+.lista-de-tablas ul li button {
+  background-color: #37378d;
+  padding: 1rem;
+  border: none;
+  color: #f2f2f2;
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=alumnado.css.map */

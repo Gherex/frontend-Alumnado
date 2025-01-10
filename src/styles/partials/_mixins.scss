@@ -4,6 +4,20 @@
   align-items: center;
 }
 
+@mixin centrar-todo-columna {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin centrar-todo-fila {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
 @mixin centrar-verticalmente {
   display: flex;
   align-items: center;
