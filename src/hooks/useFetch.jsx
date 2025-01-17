@@ -15,6 +15,9 @@ function useFetch(url) {
       try {
         const response = await fetch(url);
         if (!response.ok) {
+          if (response.status === 401) {
+            throw new Error("Acceso no autorizado. Por favor, inicia sesión.");
+          }
           throw new Error(`Error: ${response.statusText}`);
         }
         const result = await response.json();

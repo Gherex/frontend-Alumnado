@@ -1,42 +1,58 @@
-import { useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
 } from "react-router-dom";
-import Login from "./components/LoginPage";
+import LoginPage from "./components/LoginPage";
 import AlumnadoPage from "./components/alumnado/AlumnadoPage";
-import { AuthProvider } from "./context/AuthProvider";
-import "./css/App.css";
+import TablaAlumnos from "./components/alumnado/TablaAlumnos";
+import TablaProfesores from "./components/alumnado/TablaProfesores";
+import TablaInscripciones from "./components/alumnado/TablaInscripciones";
+import TablaMaterias from "./components/alumnado/TablaMaterias";
+import { AuthProvider, useAuth } from "./context/AuthProvider";
+import "./css/app.css";
 
 function App() {
-  const [role, setRole] = useState(null); // null, 'guest', 'admin'
-
   return (
     <AuthProvider>
       <Router>
         <Routes>
-          {/* Ruta inicial: Login */}
+          {/* Ruta pública para la página de login */}
+          <Route path="/" element={<LoginPage />} />
+
+          {/* Ruta protegida para la página de Alumnado */}
           <Route
-            path="/"
+            path="/alumnado/*"
             element={
-              role ? (
-                <Navigate to="/alumnado" replace />
-              ) : (
-                <Login setRole={setRole} />
-              )
+              <ProtectedRoute>
+                <AlumnadoPage />
+              </ProtectedRoute>
             }
-          />
-          {/* Ruta protegida: Alumnado */}
-          <Route
-            path="/alumnado"
-            element={role ? <AlumnadoPage role={role} /> : <Navigate to="/" />}
-          />
+          >
+            {/* Subrutas para diferentes tablas */}
+            <Route path="alumnos" element={<TablaAlumnos />} />
+            <Route path="profesores" element={<TablaProfesores />} />
+            <Route path="inscripciones" element={<TablaInscripciones />} />
+            <Route path="materias" element={<TablaMaterias />} />
+          </Route>
         </Routes>
       </Router>
     </AuthProvider>
   );
+}
+
+// Componente para proteger rutas
+function ProtectedRoute({ children }) {
+  const { role } = useAuth();
+
+  // Si no hay rol definido, redirige al login
+  if (!role) {
+    return <Navigate to="/" />;
+  }
+
+  // Si hay rol, muestra el contenido protegido
+  return children;
 }
 
 export default App;

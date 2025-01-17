@@ -1,80 +1,73 @@
-import { useState } from "react";
-import useLogin from "../hooks/useLogin";
 import "../css/login.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
-function LoginPage({ setRole }) {
-  const { login, error, isAuthenticated, user } = useLogin();
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthProvider";
+
+function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [verPassword, setVerPassword] = useState(false);
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    login(username, password).then((result) => {
-      if (result?.role) {
-        setRole(result.role); // Asigna el rol devuelto por el login
-      }
-    });
+    try {
+      const response = await fetch(
+        "https://app-alumnado-latest.onrender.com/alumnado/api/v1/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, password }), // Enviar credenciales
+          credentials: "include", // Permite el envío de cookies o credenciales
+        }
+      );
+      if (!response.ok) throw new Error("Credenciales inválidas");
+
+      const { token } = await response.json(); // Obtener el token de la respuesta
+      login("admin", token); // Guardamos el rol y el token
+      navigate("/alumnado");
+    } catch (err) {
+      alert(err.message); // Mostrar error si no se puede hacer login
+    }
+  };
+
+  const handleGuest = () => {
+    login("guest"); // Solo guardamos el rol como "guest"
+    navigate("/alumnado");
   };
 
   const togglePasswordVisibility = () => {
     setVerPassword(!verPassword);
   };
 
-  const handleGuest = () => {
-    setRole("guest"); // Define el rol como 'guest' al entrar como invitado
-  };
-
-  if (isAuthenticated) {
-    return (
-      <h1>
-        Bienvenido, {user.name}! Tu rol es: {user.role}
-      </h1>
-    );
-  }
-
   return (
     <div className="login-container">
       <div className="login">
-        <h2>Bienvenido</h2>
-        {error && <p style={{ color: "red" }}>{error}</p>}
         <form onSubmit={handleSubmit}>
           <input
             type="text"
-            placeholder="Usuario"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            required
-            pattern="[a-zA-Z]+"
-            minLength="4"
-            maxLength="6"
+            placeholder="Usuario"
           />
-          <div>
+          <div className="password-input">
             <input
               type={verPassword ? "text" : "password"}
-              placeholder="Contraseña"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required
-              pattern="[a-zA-Z0-9]+"
-              minLength="14"
-              maxLength="20"
+              placeholder="Contraseña"
             />
-            {verPassword ? (
-              <FontAwesomeIcon
-                className="input-icon"
-                icon={faEye}
-                onClick={togglePasswordVisibility}
-              />
-            ) : (
-              <FontAwesomeIcon
-                className="input-icon"
-                icon={faEyeSlash}
-                onClick={togglePasswordVisibility}
-              />
-            )}
+            <FontAwesomeIcon
+              className="password-icon"
+              icon={verPassword ? faEye : faEyeSlash}
+              onClick={togglePasswordVisibility}
+            />
           </div>
           <button type="submit">Iniciar Sesión</button>
         </form>

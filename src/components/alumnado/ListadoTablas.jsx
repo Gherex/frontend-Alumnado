@@ -1,24 +1,30 @@
 import "../../css/alumnado.css";
+import { useNavigate } from "react-router-dom";
 
 function ListadoTablas({ setTabla }) {
-  const handleClick = (tabla) => {
-    setTabla(tabla); // Actualizar el estado en el padre
+  const navigate = useNavigate(); // Hook para redirigir a rutas
+
+  const handleNavigation = (tabla) => {
+    setTabla(tabla);
+    navigate(`/alumnado/${tabla}`); // Navega a la ruta correspondiente
   };
 
   return (
     <div className="lista-de-tablas">
       <ul>
         <li>
-          <button onClick={() => handleClick("alumnos")}>Alumnos</button>
+          <button onClick={() => handleNavigation("alumnos")}>Alumnos</button>
         </li>
         <li>
-          <button onClick={() => handleClick("profesores")}>Profesores</button>
+          <button onClick={() => handleNavigation("profesores")}>
+            Profesores
+          </button>
         </li>
         <li>
-          <button onClick={() => handleClick("materias")}>Materias</button>
+          <button onClick={() => handleNavigation("materias")}>Materias</button>
         </li>
         <li>
-          <button onClick={() => handleClick("inscripciones")}>
+          <button onClick={() => handleNavigation("inscripciones")}>
             Inscripciones
           </button>
         </li>

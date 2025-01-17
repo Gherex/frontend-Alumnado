@@ -1,28 +1,29 @@
-import { useState } from "react";
-import AuthenticatedPage from "./AuthenticatedPage";
 import ListadoTablas from "./ListadoTablas";
-import NoAuthenticatedPage from "./NoAuthenticatedPage";
 import useFetch from "../../hooks/useFetch";
+import { useAuth } from "../../context/AuthProvider";
+import { Outlet } from "react-router-dom";
+import AuthenticatedActions from "./AuthenticatedActions";
+import { useState } from "react";
 
-function AlumnadoPage({ role }) {
-  const [tabla, setTabla] = useState(null);
+function AlumnadoPage() {
+  const { role } = useAuth();
   const baseUrl = "https://app-alumnado-latest.onrender.com/alumnado/api/v1";
+  const [tabla, setTabla] = useState("alumnos");
 
-  const { data, loading, error } = useFetch(
-    tabla ? `${baseUrl}/${tabla}` : null
-  );
+  // Llamada a la API
+  const { data, loading, error } = useFetch(`${baseUrl}/${tabla}`);
 
   return (
     <div className="alumnado-container">
+      {loading && <p>Cargando...</p>}
+      {error && <p>Error: {error}</p>}
+
+      <h1>Alumnado Page</h1>
+      {/* Componente para la lista de tablas */}
       <ListadoTablas setTabla={setTabla} />
-      {console.log(data)}
-      <div className="tablas-container">
-        {role === "admin" ? (
-          <AuthenticatedPage data={data} loading={loading} error={error} />
-        ) : (
-          <NoAuthenticatedPage data={data} loading={loading} error={error} />
-        )}
-      </div>
+      {/* Renderiza las subrutas */}
+      <Outlet />
+      {role === "admin" ? <AuthenticatedActions /> : ""}
     </div>
   );
 }

@@ -1,10 +1,10 @@
-function NoAuthenticatedPage({ data, loading, error }) {
+function AuthenticatedActions({ data, loading, error }) {
   if (loading) return <p>Cargando datos...</p>;
   if (error) return <p>Error: {error}</p>;
 
   return (
     <div>
-      <h1>Vista de Invitado</h1>
+      <h1>Panel de Administrador</h1>
       {data ? (
         <ul>
           {data.map((item) => (
@@ -18,4 +18,4 @@ function NoAuthenticatedPage({ data, loading, error }) {
   );
 }
 
-export default NoAuthenticatedPage;
+export default AuthenticatedActions;
