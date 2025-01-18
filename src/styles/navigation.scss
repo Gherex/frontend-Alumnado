@@ -1,0 +1,58 @@
+@import "partials/variables";
+
+.navegacion-principal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 4rem 3rem;
+}
+
+.logo {
+  width: 50px;
+}
+
+.titulo-app {
+  user-select: none;
+}
+
+.boton-login {
+  padding: 0.5rem 1rem;
+  background-color: $violeta-espacio;
+  color: $blanco;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 10px;
+  border-color: $blanco;
+}
+
+.boton-login:hover {
+  background-color: $azul;
+  transition: 0.5s;
+}
+
+.lista-de-tablas {
+  padding-bottom: 2rem;
+}
+
+.lista-de-tablas ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  list-style: none;
+  gap: 5px;
+}
+
+.botones-tablas {
+  background-color: $azul;
+  padding: 1rem;
+  border: none;
+  color: $blanco;
+  cursor: pointer;
+  text-decoration: none;
+  user-select: none;
+}
+
+.botones-tablas:hover {
+  background-color: rgba($azul, 50%);
+  transition: 0.5s;
+}

@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["../styles/alumnado.scss","../styles/partials/_variables.scss"],"names":[],"mappings":"AAIA;EACE;EACA;EACA,kBCHM;EDIN,OCHO;;;ADMT;EACE;EACA;;;AAGF;EACE;;;AAGF;EACE;EACA;EACA;EACA;;;AAGF;EACE,kBC5BK;ED6BL;EACA;EACA,OC1BO;ED2BP","file":"alumnado.css"}
+{"version":3,"sourceRoot":"","sources":["../styles/alumnado.scss","../styles/partials/_variables.scss"],"names":[],"mappings":"AAIA;EACE;EACA;EACA,kBCHM;EDIN,OCHO","file":"alumnado.css"}
