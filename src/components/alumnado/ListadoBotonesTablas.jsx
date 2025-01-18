@@ -1,7 +1,7 @@
 import "../../css/alumnado.css";
 import { useNavigate } from "react-router-dom";
 
-function ListadoTablas({ setTabla }) {
+function ListadoBotonesTablas({ setTabla }) {
   const navigate = useNavigate(); // Hook para redirigir a rutas
 
   const handleNavigation = (tabla) => {
@@ -33,4 +33,4 @@ function ListadoTablas({ setTabla }) {
   );
 }
 
-export default ListadoTablas;
+export default ListadoBotonesTablas;

@@ -39,7 +39,7 @@ function LoginPage() {
 
   const handleGuest = () => {
     login("guest"); // Solo guardamos el rol como "guest"
-    navigate("/alumnado");
+    navigate("/alumnado/alumnos");
   };
 
   const togglePasswordVisibility = () => {

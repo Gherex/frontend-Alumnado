@@ -6,10 +6,10 @@ import {
 } from "react-router-dom";
 import LoginPage from "./components/LoginPage";
 import AlumnadoPage from "./components/alumnado/AlumnadoPage";
-import TablaAlumnos from "./components/alumnado/TablaAlumnos";
-import TablaProfesores from "./components/alumnado/TablaProfesores";
-import TablaInscripciones from "./components/alumnado/TablaInscripciones";
-import TablaMaterias from "./components/alumnado/TablaMaterias";
+import TablaAlumnos from "./components/alumnado/tablas/TablaAlumnos";
+import TablaProfesores from "./components/alumnado/tablas/TablaProfesores";
+import TablaInscripciones from "./components/alumnado/tablas/TablaInscripciones";
+import TablaMaterias from "./components/alumnado/tablas/TablaMaterias";
 import { AuthProvider, useAuth } from "./context/AuthProvider";
 import "./css/app.css";
 

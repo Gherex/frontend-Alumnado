@@ -5,6 +5,10 @@
   color: #f2f2f2;
 }
 
+.alumnado-container h1 {
+  text-align: center;
+}
+
 .lista-de-tablas {
   padding: 1rem;
 }
