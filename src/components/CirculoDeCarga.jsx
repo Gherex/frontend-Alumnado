@@ -7,7 +7,7 @@ function CirculoDeCarga() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "100vh",
+        height: "200px",
       }}
     >
       <CircularProgress />

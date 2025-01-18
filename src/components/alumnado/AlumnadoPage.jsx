@@ -3,6 +3,7 @@ import { useAuth } from "../../context/AuthProvider";
 import { Outlet } from "react-router-dom";
 import AuthenticatedActions from "./AuthenticatedActions";
 import { useState } from "react";
+import "../../css/alumnado.css";
 
 function AlumnadoPage() {
   const { role } = useAuth();
