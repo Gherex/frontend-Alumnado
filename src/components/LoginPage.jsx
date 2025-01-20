@@ -1,10 +1,10 @@
 import "../css/login.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthProvider";
+import CirculoDeCarga from "./CirculoDeCarga";
 
 function LoginPage() {
   const [username, setUsername] = useState("");
@@ -12,9 +12,13 @@ function LoginPage() {
   const [verPassword, setVerPassword] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError(null);
     try {
       const response = await fetch(
         "https://app-alumnado-latest.onrender.com/alumnado/api/v1/auth/login",
@@ -29,11 +33,13 @@ function LoginPage() {
       );
       if (!response.ok) throw new Error("Credenciales inválidas");
 
-      const { token } = await response.json(); // Obtener el token de la respuesta
-      login("admin", token); // Guardamos el rol y el token
-      navigate("/alumnado");
+      // Si la respuesta es exitosa, el backend ya ha configurado la cookie JWT
+      login("admin"); // Solo guardamos el rol en el contexto
+      navigate("/alumnado/alumnos");
     } catch (err) {
-      alert(err.message); // Mostrar error si no se puede hacer login
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -48,6 +54,7 @@ function LoginPage() {
 
   return (
     <div className="login-container">
+      {error && <p>Error: {error}</p>}
       <div className="login">
         <form onSubmit={handleSubmit}>
           <input
@@ -69,7 +76,13 @@ function LoginPage() {
               onClick={togglePasswordVisibility}
             />
           </div>
-          <button type="submit">Iniciar Sesión</button>
+          <button type="submit">
+            {loading ? (
+              <CirculoDeCarga className="boton-de-carga-submit" />
+            ) : (
+              "Iniciar Sesión"
+            )}
+          </button>
         </form>
         <button onClick={handleGuest}>Acceder como invitado</button>
       </div>

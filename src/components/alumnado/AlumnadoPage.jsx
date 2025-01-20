@@ -1,6 +1,6 @@
 import { useAuth } from "../../context/AuthProvider";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import AuthenticatedActions from "./AuthenticatedActions";
+import AuthenticatedActions from "./actions/AuthenticatedActions";
 import BarraDeNavegacion from "../navigation/BarraNavegacion";
 import Footer from "../navigation/Footer";
 import "../../css/alumnado.css";

@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2rem 4rem 3rem;
+  padding: 2rem 4rem;
 }
 
 .logo {
@@ -29,7 +29,7 @@
 }
 
 .lista-de-tablas {
-  padding-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 .lista-de-tablas ul {
@@ -48,6 +48,9 @@
   cursor: pointer;
   text-decoration: none;
   user-select: none;
+  display: block;
+  width: 150px;
+  text-align: center;
 }
 
 .botones-tablas:hover {
@@ -60,12 +63,12 @@ footer {
   justify-content: center;
   align-items: center;
   gap: 10px;
-  height: 70px;
+  padding: 1rem 0;
 }
 
 footer a {
   color: #f2f2f2;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 
 footer a:hover {

@@ -12,5 +12,32 @@
 
 .alumnado-container {
   flex: 1;
-  align-content: center;
+}
+
+.alumnado-container .boton-de-carga {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.administrador-container {
+  position: relative;
+  margin: 3rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid $blanco;
+  min-height: 100px;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.titulo-administrador {
+  position: absolute;
+  top: -15px;
+  background-color: $negro;
+  padding: 0 1rem;
 }

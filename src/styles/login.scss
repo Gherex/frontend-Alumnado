@@ -68,6 +68,7 @@
 
 .login form button {
   max-width: 300px;
+  height: 3rem;
   padding: 10px;
   font-size: 1.2rem;
   background-color: $azul;
@@ -83,6 +84,7 @@
 }
 
 .login button {
+  position: relative;
   background-color: $violeta-espacio;
   width: 100%;
   max-width: 300px;
@@ -101,4 +103,11 @@
 .login button:hover {
   background-color: $gris;
   transition: 1s;
+}
+
+.boton-de-carga {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  right: 0;
 }
