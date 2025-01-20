@@ -4,8 +4,8 @@
 
 .login-container {
   background-color: $negro;
-  height: 100dvh;
-  width: 100dvw;
+  min-height: 100dvh;
+  min-width: 100dvw;
   @include centrar-todo-columna;
   user-select: none;
 }

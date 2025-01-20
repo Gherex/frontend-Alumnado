@@ -2,9 +2,15 @@
 @import "partials/mixins";
 @import "partials/breakpoints";
 
-.alumnado-container {
-  width: 100dvw;
-  height: 100dvh;
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
   background-color: $negro;
   color: $blanco;
+}
+
+.alumnado-container {
+  flex: 1;
+  align-content: center;
 }

@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 4rem 3rem;
+  padding: 2rem 4rem 3rem;
 }
 
 .logo {
@@ -52,6 +52,24 @@
 
 .botones-tablas:hover {
   background-color: rgba(55, 55, 141, 0.5);
+  transition: 0.5s;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  height: 70px;
+}
+
+footer a {
+  color: #f2f2f2;
+  font-size: 1.5rem;
+}
+
+footer a:hover {
+  color: #9f9f9f;
   transition: 0.5s;
 }
 

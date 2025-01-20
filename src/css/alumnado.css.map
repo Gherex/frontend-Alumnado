@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["../styles/alumnado.scss","../styles/partials/_variables.scss"],"names":[],"mappings":"AAIA;EACE;EACA;EACA,kBCHM;EDIN,OCHO","file":"alumnado.css"}
+{"version":3,"sourceRoot":"","sources":["../styles/alumnado.scss","../styles/partials/_variables.scss"],"names":[],"mappings":"AAIA;EACE;EACA;EACA;EACA,kBCJM;EDKN,OCJO;;;ADOT;EACE;EACA","file":"alumnado.css"}

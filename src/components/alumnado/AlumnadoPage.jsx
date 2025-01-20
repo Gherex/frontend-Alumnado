@@ -2,6 +2,7 @@ import { useAuth } from "../../context/AuthProvider";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import AuthenticatedActions from "./AuthenticatedActions";
 import BarraDeNavegacion from "../navigation/BarraNavegacion";
+import Footer from "../navigation/Footer";
 import "../../css/alumnado.css";
 
 function AlumnadoPage() {
@@ -16,15 +17,18 @@ function AlumnadoPage() {
     navigate("/"); // Redirige al login
   };
 
-  // Determina la tabla actual según la ruta
+  // Determina la tabla actual según la ruta en la URL
   const tablaActual = location.pathname.split("/").pop();
 
   return (
-    <div className="alumnado-container">
+    <div className="app-container">
       <BarraDeNavegacion isAdmin={isAdmin} onLogout={handleLogout} />
-      {/* Renderiza las subrutas */}
-      <Outlet />
-      {isAdmin ? <AuthenticatedActions tabla={tablaActual} /> : null}
+      <main className="alumnado-container">
+        {/* Renderiza las subrutas */}
+        <Outlet />
+        {isAdmin ? <AuthenticatedActions tabla={tablaActual} /> : null}
+      </main>
+      <Footer />
     </div>
   );
 }

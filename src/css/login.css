@@ -1,7 +1,7 @@
 .login-container {
   background-color: #1f1e20;
-  height: 100dvh;
-  width: 100dvw;
+  min-height: 100dvh;
+  min-width: 100dvw;
   display: flex;
   flex-direction: column;
   justify-content: center;

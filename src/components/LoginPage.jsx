@@ -38,7 +38,7 @@ function LoginPage() {
   };
 
   const handleGuest = () => {
-    login("guest"); // Solo guardamos el rol como "guest"
+    login("guest"); // Acá solo guardo el rol como "guest"
     navigate("/alumnado/alumnos");
   };
 
