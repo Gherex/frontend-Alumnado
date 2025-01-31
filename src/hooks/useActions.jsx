@@ -18,6 +18,8 @@ const useActions = () => {
           return idKey ? fila[idKey] : null; // Retorna el valor del ID si existe
         });
         setArrayIDs(idsTabla.filter(Boolean)); // Filtra valores nulos
+        console.log("Entro aqui");
+        console.log(arrayIDs);
       }
     } catch (err) {
       setError(err.message);
@@ -49,7 +51,7 @@ const useActions = () => {
 
       const data = await response.json();
       console.log("Fila agregada exitosamente: ", data);
-      actualizarArrayIds();
+      actualizarArrayIds(tabla);
       return data;
     } catch (err) {
       setError(err.message);
@@ -78,7 +80,7 @@ const useActions = () => {
 
       const data = await response.json();
       console.log("Fila modificada exitosamente:", data);
-      actualizarArrayIds();
+      actualizarArrayIds(tabla); // Actualiza los IDs
       return data;
     } catch (err) {
       setError(err.message);
@@ -105,7 +107,7 @@ const useActions = () => {
       }
 
       console.log(`Fila con ID ${id} eliminada exitosamente.`);
-      actualizarArrayIds();
+      actualizarArrayIds(tabla); // Actualiza los IDs
       return true; // Indica éxito
     } catch (err) {
       setError(err.message);
@@ -115,7 +117,15 @@ const useActions = () => {
     }
   };
 
-  return { agregarFila, modificarFila, eliminarFila, loading, error, arrayIDs };
+  return {
+    agregarFila,
+    modificarFila,
+    eliminarFila,
+    actualizarArrayIds,
+    loading,
+    error,
+    arrayIDs,
+  };
 };
 
 export default useActions;

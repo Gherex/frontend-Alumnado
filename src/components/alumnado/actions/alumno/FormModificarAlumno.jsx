@@ -2,7 +2,8 @@ import { useState } from "react";
 import PersonaForm from "../PersonaForm";
 import CirculoDeCarga from "../../../CirculoDeCarga";
 
-function FormModificarAlumno({ modificarFila, loading, error }) {
+function FormModificarAlumno({ modificarFila, loading, error, arrayIDs }) {
+  const [selectedId, setSelectedId] = useState("");
   const [formData, setFormData] = useState({
     nombre: "",
     apellido: "",
@@ -13,6 +14,11 @@ function FormModificarAlumno({ modificarFila, loading, error }) {
     matricula: "",
     fecha_ingreso: "",
   });
+
+  // Manejar cambio de ID seleccionado
+  const handleIdChange = (e) => {
+    setSelectedId(e.target.value);
+  };
 
   // Manejar cambios en los inputs
   const handleChange = (e) => {
@@ -38,6 +44,11 @@ function FormModificarAlumno({ modificarFila, loading, error }) {
       fecha_ingreso: formData.fecha_ingreso,
     };
 
+    if (!selectedId) {
+      alert("Selecciona un ID válido");
+      return;
+    }
+
     try {
       await modificarFila("alumnos", newAlumno);
     } catch (err) {
@@ -47,6 +58,23 @@ function FormModificarAlumno({ modificarFila, loading, error }) {
 
   return (
     <form onSubmit={handleSubmit} className="form-container">
+      <label>
+        ID del Alumno a modificar:
+        <select value={selectedId} onChange={handleIdChange} required>
+          <option value="">Selecciona un ID</option>
+          {arrayIDs && arrayIDs.length > 0 ? (
+            arrayIDs.map((id) => (
+              <option key={id} value={id}>
+                {id}
+              </option>
+            ))
+          ) : (
+            <option value="" disabled>
+              Cargando IDs...
+            </option>
+          )}
+        </select>s
+      </label>
       <PersonaForm handleChange={handleChange} formData={formData} />
       <h3>Información del Alumno</h3>
       <label htmlFor="matricula">
