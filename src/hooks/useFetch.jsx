@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 
+// Añadir autenticación en las peticiones:
 function useFetch(url) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -18,10 +19,11 @@ function useFetch(url) {
           if (response.status === 401) {
             throw new Error("Acceso no autorizado. Por favor, inicia sesión.");
           }
-          throw new Error(`Error: ${response.statusText}`);
+          throw new Error(`No se pudo cargar la tabla. ${response.statusText}`);
         }
         const result = await response.json();
         setData(result);
+        console.log(result);
       } catch (err) {
         setError(err.message);
       } finally {

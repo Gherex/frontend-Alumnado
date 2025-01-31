@@ -1,7 +1,7 @@
-import AlumnosActions from "./AlumnosActions";
-import ProfesoresActions from "./ProfesoresActions";
-import MateriasActions from "./MateriasActions";
-import InscripcionesActions from "./InscripcionesActions";
+import AlumnosActions from "./alumno/AlumnosActions";
+import ProfesoresActions from "./profesor/ProfesoresActions";
+import MateriasActions from "./materia/MateriasActions";
+import InscripcionesActions from "./inscripcion/InscripcionesActions";
 import "../../../css/alumnado.css";
 
 function AuthenticatedActions({ tabla }) {

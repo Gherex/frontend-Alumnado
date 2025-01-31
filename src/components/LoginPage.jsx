@@ -24,27 +24,36 @@ function LoginPage() {
         "https://app-alumnado-latest.onrender.com/alumnado/api/v1/auth/login",
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ username, password }), // Enviar credenciales
-          credentials: "include", // Permite el envío de cookies o credenciales
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password }),
         }
       );
-      if (!response.ok) throw new Error("Credenciales inválidas");
 
-      // Si la respuesta es exitosa, el backend ya ha configurado la cookie JWT
-      login("admin"); // Solo guardamos el rol en el contexto
-      navigate("/alumnado/alumnos");
+      const data = await response.json(); // Parsear respuesta como JSON
+
+      if (response.ok) {
+        localStorage.setItem("jwtToken", data.token); // Guardar token
+        login("admin");
+        navigate("/alumnado/alumnos");
+      } else {
+        setError(data.error || "Credenciales inválidas");
+      }
     } catch (err) {
-      setError(err.message);
+      if (err.message === "Failed to fetch") {
+        setError(
+          "No se pudo conectar al servidor. Inténtalo de nuevo más tarde."
+        );
+      } else {
+        setError(err.message);
+      }
     } finally {
       setLoading(false);
     }
   };
 
   const handleGuest = () => {
-    login("guest"); // Acá solo guardo el rol como "guest"
+    localStorage.removeItem("jwtToken"); // Limpiar token existente
+    login("guest");
     navigate("/alumnado/alumnos");
   };
 
@@ -76,13 +85,15 @@ function LoginPage() {
               onClick={togglePasswordVisibility}
             />
           </div>
-          <button type="submit">
-            {loading ? (
-              <CirculoDeCarga className="boton-de-carga-submit" />
-            ) : (
-              "Iniciar Sesión"
-            )}
-          </button>
+          <fieldset>
+            <button type="submit">
+              {loading ? (
+                <CirculoDeCarga className="boton-de-carga" />
+              ) : (
+                "Iniciar Sesión"
+              )}
+            </button>
+          </fieldset>
         </form>
         <button onClick={handleGuest}>Acceder como invitado</button>
       </div>

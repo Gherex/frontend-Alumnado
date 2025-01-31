@@ -3,30 +3,26 @@ import { createContext, useContext, useState } from "react";
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [role, setRole] = useState(sessionStorage.getItem("role"));
-  const [token, setToken] = useState(sessionStorage.getItem("authToken"));
+  const [role, setRole] = useState(() => {
+    return localStorage.getItem("jwtToken") ? "admin" : "guest"; // ← Deriva el rol del token
+  });
 
-  const login = (newRole, newToken = null) => {
+  const login = (newRole) => {
     setRole(newRole);
-    setToken(newToken);
-    sessionStorage.setItem("role", newRole);
-    if (newToken) sessionStorage.setItem("authToken", newToken);
   };
 
   const logout = () => {
-    setRole(null);
-    setToken(null);
-    sessionStorage.clear();
+    setRole("guest"); // ← No borra completamente, mantengo estado guest
+    localStorage.removeItem("jwtToken");
   };
 
   return (
-    <AuthContext.Provider value={{ role, token, login, logout }}>
+    <AuthContext.Provider value={{ role, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
 }
 
-// Custom hook para consumir el contexto
 export function useAuth() {
   return useContext(AuthContext);
 }

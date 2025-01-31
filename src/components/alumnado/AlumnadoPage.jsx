@@ -10,11 +10,11 @@ function AlumnadoPage() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const isAdmin = role === "admin";
+  const isAdmin = role === "admin" && localStorage.getItem("jwtToken"); // ← Verificar token
 
   const handleLogout = () => {
     logout(); // Limpia la autenticación
-    navigate("/"); // Redirige al login
+    navigate("/", { replace: true }); // ← Redirige al login y evita retroceso en historial
   };
 
   // Determina la tabla actual según la ruta en la URL

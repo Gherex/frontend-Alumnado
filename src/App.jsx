@@ -2,7 +2,7 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Navigate,
+  useNavigate,
 } from "react-router-dom";
 import LoginPage from "./components/LoginPage";
 import AlumnadoPage from "./components/alumnado/AlumnadoPage";
@@ -12,6 +12,7 @@ import TablaInscripciones from "./components/alumnado/tablas/TablaInscripciones"
 import TablaMaterias from "./components/alumnado/tablas/TablaMaterias";
 import { AuthProvider, useAuth } from "./context/AuthProvider";
 import "./css/app.css";
+import { useEffect } from "react";
 
 function App() {
   return (
@@ -42,16 +43,29 @@ function App() {
   );
 }
 
-// Componente para proteger rutas
+// // Componente para proteger rutas
+// function ProtectedRoute({ children }) {
+//   const { role } = useAuth();
+
+//   // Si no hay rol definido, redirige al login
+//   if (!role) {
+//     return <Navigate to="/" />;
+//   }
+
+//   // Si hay rol, muestra el contenido protegido
+//   return children;
+// }
+
 function ProtectedRoute({ children }) {
   const { role } = useAuth();
+  const navigate = useNavigate();
 
-  // Si no hay rol definido, redirige al login
-  if (!role) {
-    return <Navigate to="/" />;
-  }
+  useEffect(() => {
+    if (!localStorage.getItem("jwtToken") && role !== "guest") {
+      navigate("/");
+    }
+  }, [role, navigate]);
 
-  // Si hay rol, muestra el contenido protegido
   return children;
 }
 

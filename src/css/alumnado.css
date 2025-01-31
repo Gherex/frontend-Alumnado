@@ -11,6 +11,7 @@
 }
 
 .alumnado-container .boton-de-carga {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,7 +26,7 @@
   justify-content: center;
   align-items: center;
   border: 1px solid #f2f2f2;
-  min-height: 100px;
+  min-height: 400px;
   max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
@@ -35,6 +36,74 @@
   position: absolute;
   top: -15px;
   background-color: #1f1e20;
+  padding: 0 1rem;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container h3 {
+  margin: 1rem 0;
+}
+
+.form-container label {
+  display: flex;
+  width: 100%;
+  text-wrap: nowrap;
+}
+
+.form-container input {
+  width: 100%;
+  padding-left: 10px;
+  background-color: #1f1e20;
+  color: #f2f2f2;
+  border: none;
+  border-bottom: 1px solid #f2f2f2;
+  margin-bottom: 0.5rem;
+}
+
+.form-container fieldset {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  border: none;
+}
+
+.action-button {
+  position: relative;
+  background-color: #37378d;
+  color: #f2f2f2;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  margin: 0.5rem 0 1rem;
+  min-height: 3rem;
+  width: 80%;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.action-button:hover {
+  background-color: #332e57;
+  transition: 0.5s;
+}
+
+fieldset .boton-de-carga {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  min-height: 0;
+}
+
+.acciones-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   padding: 0 1rem;
 }
 

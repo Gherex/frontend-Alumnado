@@ -9,7 +9,6 @@ function TablaAlumnos() {
 
   return (
     <>
-      {error && <p>Error: {error}</p>}
       {loading ? (
         <CirculoDeCarga />
       ) : (
@@ -46,6 +45,11 @@ function TablaAlumnos() {
             </tbody>
           </table>
         </div>
+      )}
+      {error && (
+        <p style={{ textAlign: "center", color: "red", margin: "1rem" }}>
+          {error}
+        </p>
       )}
     </>
   );
