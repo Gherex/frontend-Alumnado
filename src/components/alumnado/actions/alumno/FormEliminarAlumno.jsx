@@ -24,17 +24,19 @@ function FormEliminarAlumno({ eliminarFila, loading, error, arrayIDs }) {
 
   return (
     <form onSubmit={handleSubmit} className="form-container">
-      <label>
-        ID del Alumno a eliminar:
-        <select value={selectedId} onChange={handleIdChange} required>
-          <option value="">Selecciona un ID</option>
-          {arrayIDs.map((id) => (
-            <option key={id} value={id}>
-              {id}
-            </option>
-          ))}
-        </select>
-      </label>
+      <select
+        value={selectedId}
+        onChange={handleIdChange}
+        required
+        className="select-input"
+      >
+        <option value="">Selecciona un ID</option>
+        {arrayIDs.map((id) => (
+          <option key={id} value={id}>
+            {id}
+          </option>
+        ))}
+      </select>
       <fieldset>
         <button type="submit" disabled={loading} className="action-button">
           {loading ? <CirculoDeCarga /> : "Eliminar Alumno"}

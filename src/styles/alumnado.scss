@@ -113,5 +113,11 @@ fieldset .boton-de-carga {
   width: 100%;
   max-width: 1100px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 4rem 1rem;
+}
+
+.select-input {
+  background-color: $negro;
+  color: $blanco;
+  border: none;
 }

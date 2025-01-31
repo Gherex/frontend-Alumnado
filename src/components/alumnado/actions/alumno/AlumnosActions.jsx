@@ -2,28 +2,45 @@ import useActions from "../../../../hooks/useActions";
 import FormAgregarAlumno from "./FormAgregarAlumno";
 import FormModificarAlumno from "./FormModificarAlumno";
 import FormEliminarAlumno from "./FormEliminarAlumno";
+import { useEffect } from "react";
 
 function AlumnosActions() {
-  const { agregarFila, modificarFila, eliminarFila, arrayIDs, loading, error } =
-    useActions();
+  const {
+    agregarFila,
+    modificarFila,
+    eliminarFila,
+    arrayIDs,
+    loadingAgregar,
+    loadingModificar,
+    loadingEliminar,
+    errorAgregar,
+    errorModificar,
+    errorEliminar,
+    actualizarArrayIds,
+  } = useActions();
+
+  // Cargar IDs al montar el componente
+  useEffect(() => {
+    actualizarArrayIds("alumnos");
+  }, []);
 
   return (
     <div className="actions-container">
       <FormAgregarAlumno
         agregarFila={agregarFila}
-        loading={loading}
-        error={error}
+        loading={loadingAgregar}
+        error={errorAgregar}
       />
       <FormModificarAlumno
         modificarFila={modificarFila}
-        loading={loading}
-        error={error}
+        loading={loadingModificar}
+        error={errorModificar}
         arrayIDs={arrayIDs}
       />
       <FormEliminarAlumno
         eliminarFila={eliminarFila}
-        loading={loading}
-        error={error}
+        loading={loadingEliminar}
+        error={errorEliminar}
         arrayIDs={arrayIDs}
       />
     </div>

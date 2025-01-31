@@ -1,8 +1,15 @@
 import { useState } from "react";
 
 const useActions = () => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  // Estados separados para cada acción
+  const [loadingAgregar, setLoadingAgregar] = useState(false);
+  const [loadingModificar, setLoadingModificar] = useState(false);
+  const [loadingEliminar, setLoadingEliminar] = useState(false);
+
+  const [errorAgregar, setErrorAgregar] = useState(null);
+  const [errorModificar, setErrorModificar] = useState(null);
+  const [errorEliminar, setErrorEliminar] = useState(null);
+
   const [arrayIDs, setArrayIDs] = useState([]);
 
   const actualizarArrayIds = async (tabla) => {
@@ -12,26 +19,22 @@ const useActions = () => {
       );
       if (response.ok) {
         const data = await response.json();
-        // Crear nuevo array solo con los ID que comienzan con "id_"
         const idsTabla = data.map((fila) => {
           const idKey = Object.keys(fila).find((key) => key.startsWith("id_"));
-          return idKey ? fila[idKey] : null; // Retorna el valor del ID si existe
+          return idKey ? fila[idKey] : null;
         });
-        setArrayIDs(idsTabla.filter(Boolean)); // Filtra valores nulos
-        console.log("Entro aqui");
-        console.log(arrayIDs);
+        setArrayIDs(idsTabla.filter(Boolean));
       }
     } catch (err) {
-      setError(err.message);
-      throw err;
+      console.error("Error al actualizar IDs:", err);
     }
   };
 
   const agregarFila = async (tabla, nuevaFila) => {
-    setLoading(true);
-    setError(null);
+    setLoadingAgregar(true);
+    setErrorAgregar(null);
     try {
-      const token = localStorage.getItem("jwtToken"); // Recupera el token
+      const token = localStorage.getItem("jwtToken");
       const response = await fetch(
         `https://app-alumnado-latest.onrender.com/alumnado/api/v1/${tabla}`,
         {
@@ -40,13 +43,13 @@ const useActions = () => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          credentials: "include", // Esto pertenece a la configuración general de la solicitud, no a los headers
+          credentials: "include",
           body: JSON.stringify(nuevaFila),
         }
       );
 
       if (!response.ok) {
-        throw new Error("Error al agregar la fila: " + response.statusText);
+        throw new Error("Error al agregar la fila. " + response.statusText);
       }
 
       const data = await response.json();
@@ -54,66 +57,75 @@ const useActions = () => {
       actualizarArrayIds(tabla);
       return data;
     } catch (err) {
-      setError(err.message);
+      setErrorAgregar(err.message);
       throw err;
     } finally {
-      setLoading(false);
+      setLoadingAgregar(false);
     }
   };
 
   const modificarFila = async (tabla, id, filaModificada) => {
-    setLoading(true);
-    setError(null);
+    setLoadingModificar(true);
+    setErrorModificar(null);
     try {
+      const token = localStorage.getItem("jwtToken"); // Obtener el token
       const response = await fetch(
         `https://app-alumnado-latest.onrender.com/alumnado/api/v1/${tabla}/${id}`,
         {
           method: "PUT",
+          headers: {
+            "Content-Type": "application/json", // Asegúrate de incluir este header
+            Authorization: `Bearer ${token}`, // Incluir el token JWT
+          },
           credentials: "include",
           body: JSON.stringify(filaModificada),
         }
       );
 
       if (!response.ok) {
-        throw new Error("Error al modificar la fila: " + response.statusText);
+        throw new Error("Error al modificar la fila. " + response.statusText);
       }
 
       const data = await response.json();
       console.log("Fila modificada exitosamente:", data);
-      actualizarArrayIds(tabla); // Actualiza los IDs
+      actualizarArrayIds(tabla);
       return data;
     } catch (err) {
-      setError(err.message);
+      setErrorModificar(err.message);
       throw err;
     } finally {
-      setLoading(false);
+      setLoadingModificar(false);
     }
   };
 
   const eliminarFila = async (tabla, id) => {
-    setLoading(true);
-    setError(null);
+    setLoadingEliminar(true);
+    setErrorEliminar(null);
     try {
+      const token = localStorage.getItem("jwtToken");
       const response = await fetch(
         `https://app-alumnado-latest.onrender.com/alumnado/api/v1/${tabla}/${id}`,
         {
           method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
           credentials: "include",
         }
       );
 
       if (!response.ok) {
-        throw new Error("Error al eliminar la fila: " + response.statusText);
+        throw new Error("Error al eliminar la fila. " + response.statusText);
       }
 
       console.log(`Fila con ID ${id} eliminada exitosamente.`);
-      actualizarArrayIds(tabla); // Actualiza los IDs
-      return true; // Indica éxito
+      actualizarArrayIds(tabla);
+      return true;
     } catch (err) {
-      setError(err.message);
+      setErrorEliminar(err.message);
       throw err;
     } finally {
-      setLoading(false);
+      setLoadingEliminar(false);
     }
   };
 
@@ -122,8 +134,12 @@ const useActions = () => {
     modificarFila,
     eliminarFila,
     actualizarArrayIds,
-    loading,
-    error,
+    loadingAgregar,
+    loadingModificar,
+    loadingEliminar,
+    errorAgregar,
+    errorModificar,
+    errorEliminar,
     arrayIDs,
   };
 };
