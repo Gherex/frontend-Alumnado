@@ -9,7 +9,6 @@ function TablaInscripciones() {
 
   return (
     <>
-      {error && <p style={{ textAlign: "center", color: "red" }}>{error}</p>}
       {loading ? (
         <CirculoDeCarga />
       ) : (
@@ -53,6 +52,7 @@ function TablaInscripciones() {
           </table>
         </div>
       )}
+      {error && <p style={{ textAlign: "center", color: "red" }}>{error}</p>}
     </>
   );
 }

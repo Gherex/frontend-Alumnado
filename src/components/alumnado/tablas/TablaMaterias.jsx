@@ -9,7 +9,6 @@ function TablaMaterias() {
 
   return (
     <>
-      {error && <p style={{ textAlign: "center", color: "red" }}>{error}</p>}
       {loading ? (
         <CirculoDeCarga />
       ) : (
@@ -43,6 +42,7 @@ function TablaMaterias() {
           </table>
         </div>
       )}
+      {error && <p style={{ textAlign: "center", color: "red" }}>{error}</p>}
     </>
   );
 }

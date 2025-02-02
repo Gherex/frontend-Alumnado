@@ -9,7 +9,6 @@ function TablaProfesores() {
 
   return (
     <>
-      {error && <p style={{ textAlign: "center", color: "red" }}>{error}</p>}
       {loading ? (
         <CirculoDeCarga />
       ) : (
@@ -47,6 +46,7 @@ function TablaProfesores() {
           </table>
         </div>
       )}
+      {error && <p style={{ textAlign: "center", color: "red" }}>{error}</p>}
     </>
   );
 }

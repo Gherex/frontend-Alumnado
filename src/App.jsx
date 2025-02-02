@@ -43,25 +43,13 @@ function App() {
   );
 }
 
-// // Componente para proteger rutas
-// function ProtectedRoute({ children }) {
-//   const { role } = useAuth();
-
-//   // Si no hay rol definido, redirige al login
-//   if (!role) {
-//     return <Navigate to="/" />;
-//   }
-
-//   // Si hay rol, muestra el contenido protegido
-//   return children;
-// }
-
 function ProtectedRoute({ children }) {
   const { role } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!localStorage.getItem("jwtToken") && role !== "guest") {
+    const token = localStorage.getItem("jwtToken");
+    if (!token && role !== "guest") {
       navigate("/");
     }
   }, [role, navigate]);

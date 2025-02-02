@@ -1,7 +1,7 @@
 import { useState } from "react";
 import CirculoDeCarga from "../../../CirculoDeCarga";
 
-function FormEliminarAlumno({ eliminarFila, loading, error, arrayIDs }) {
+function FormEliminarProfesor({ eliminarFila, loading, error, arrayIDs }) {
   const [selectedId, setSelectedId] = useState("");
 
   const handleIdChange = (e) => {
@@ -15,7 +15,7 @@ function FormEliminarAlumno({ eliminarFila, loading, error, arrayIDs }) {
       return;
     }
     try {
-      await eliminarFila("alumnos", selectedId);
+      await eliminarFila("profesores", selectedId);
       setSelectedId(""); // Resetear selección
     } catch (err) {
       console.error("Error al eliminar:", err);
@@ -45,7 +45,7 @@ function FormEliminarAlumno({ eliminarFila, loading, error, arrayIDs }) {
       </select>
       <fieldset>
         <button type="submit" disabled={loading} className="action-button">
-          {loading ? <CirculoDeCarga /> : "Eliminar Alumno"}
+          {loading ? <CirculoDeCarga /> : "Eliminar Profesor"}
         </button>
       </fieldset>
       {error && <p style={{ color: "red" }}>{error}</p>}
@@ -53,4 +53,4 @@ function FormEliminarAlumno({ eliminarFila, loading, error, arrayIDs }) {
   );
 }
 
-export default FormEliminarAlumno;
+export default FormEliminarProfesor;
