@@ -1,31 +1,32 @@
 import { useState } from "react";
 import CirculoDeCarga from "../../../CirculoDeCarga";
 
-function FormEliminarProfesor({ eliminarFila, loading, error, arrayIDs }) {
+function FormEliminarMateria({ eliminarFila, loading, error, arrayIDs }) {
   const [selectedId, setSelectedId] = useState("");
 
-  const handleIdChange = (e) => {
+  const handleIdChange = async (e) => {
     setSelectedId(e.target.value);
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Evitar el comportamiento por defecto del formulario
+
     if (!selectedId) {
       alert("Selecciona un ID válido");
       return;
     }
+
     try {
-      await eliminarFila("profesores", selectedId);
-      setSelectedId(""); // Resetear selección
+      await eliminarFila("materias", selectedId);
     } catch (err) {
-      console.error("Error al intentar eliminar un profesor. ", err);
+      console.error("Error al intentar eliminar una materia. ", err);
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className="form-container">
       <select
-        id="select-eliminar"
+        id="select-modificar-materia"
         value={selectedId}
         onChange={handleIdChange}
         required
@@ -46,12 +47,12 @@ function FormEliminarProfesor({ eliminarFila, loading, error, arrayIDs }) {
       </select>
       <fieldset>
         <button type="submit" disabled={loading} className="action-button">
-          {loading ? <CirculoDeCarga /> : "Eliminar Profesor"}
+          {loading ? <CirculoDeCarga /> : "Eliminar Materia"}
         </button>
       </fieldset>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p style={{ textAlign: "center", color: "red" }}>{error}</p>}
     </form>
   );
 }
 
-export default FormEliminarProfesor;
+export default FormEliminarMateria;

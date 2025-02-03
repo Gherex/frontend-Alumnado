@@ -52,6 +52,7 @@ function FormAgregarAlumno({ agregarFila, loading, error }) {
       <label htmlFor="matricula">
         Matrícula:
         <input
+          id="matricula"
           type="text"
           name="matricula"
           value={formData.matricula}

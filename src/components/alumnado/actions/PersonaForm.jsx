@@ -5,6 +5,7 @@ function PersonaForm({ handleChange, formData }) {
       <label htmlFor="nombre">
         Nombre:
         <input
+          id="nombre"
           type="text"
           name="nombre"
           value={formData.nombre}
@@ -15,6 +16,7 @@ function PersonaForm({ handleChange, formData }) {
       <label htmlFor="apellido">
         Apellido:
         <input
+          id="apellido"
           type="text"
           name="apellido"
           value={formData.apellido}
@@ -25,6 +27,7 @@ function PersonaForm({ handleChange, formData }) {
       <label htmlFor="dni">
         DNI:
         <input
+          id="dni"
           type="number"
           name="dni"
           value={formData.dni}
@@ -46,6 +49,7 @@ function PersonaForm({ handleChange, formData }) {
       <label htmlFor="correo_electronico">
         Correo Electrónico:
         <input
+          id="correo_electronico"
           type="email"
           name="correo_electronico"
           value={formData.correo_electronico}
@@ -56,6 +60,7 @@ function PersonaForm({ handleChange, formData }) {
       <label htmlFor="telefono">
         Teléfono:
         <input
+          id="telefono"
           type="tel"
           name="telefono"
           value={formData.telefono}

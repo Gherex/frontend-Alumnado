@@ -49,6 +49,7 @@ function FormAgregarProfesor({ agregarFila, loading, error }) {
       <label htmlFor="especialidad">
         Especialidad:
         <input
+          id="especialidad"
           type="text"
           name="especialidad"
           value={formData.especialidad}

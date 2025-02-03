@@ -129,11 +129,29 @@ const useActions = () => {
     }
   };
 
+  async function obtenerProfesor(id) {
+    try {
+      const response = await fetch(
+        `https://app-alumnado-latest.onrender.com/alumnado/api/v1/profesores/${id}`
+      );
+      if (response.ok) {
+        const profesor = await response.json();
+        return profesor;
+      }
+    } catch (err) {
+      console.error(
+        "Error al intentar obtener un profesor con el ID especificado. ",
+        err
+      );
+    }
+  }
+
   return {
     agregarFila,
     modificarFila,
     eliminarFila,
     actualizarArrayIds,
+    obtenerProfesor,
     loadingAgregar,
     loadingModificar,
     loadingEliminar,
