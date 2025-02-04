@@ -26,7 +26,7 @@ function FormEliminarMateria({ eliminarFila, loading, error, arrayIDs }) {
   return (
     <form onSubmit={handleSubmit} className="form-container">
       <select
-        id="select-modificar-materia"
+        id="select-eliminar-materia"
         value={selectedId}
         onChange={handleIdChange}
         required

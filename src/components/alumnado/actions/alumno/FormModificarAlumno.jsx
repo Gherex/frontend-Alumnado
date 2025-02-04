@@ -105,6 +105,7 @@ function FormModificarAlumno({ modificarFila, loading, error, arrayIDs }) {
   return (
     <form onSubmit={handleSubmit} className="form-container">
       <select
+        id="select-modificar-alumno"
         value={selectedId}
         onChange={handleIdChange}
         required

@@ -6,7 +6,7 @@ function FormAgregarMateria({
   loading,
   error,
   profesoresID,
-  obtenerProfesor,
+  obtenerFila,
 }) {
   const [selectedId, setSelectedId] = useState("");
   const [nombre, setNombre] = useState("");
@@ -23,7 +23,7 @@ function FormAgregarMateria({
       return;
     }
 
-    const profesor = await obtenerProfesor(selectedId);
+    const profesor = await obtenerFila("profesores", selectedId);
 
     // Construir el objeto Materia
     const newMateria = {

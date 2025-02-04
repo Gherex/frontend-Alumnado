@@ -19,31 +19,17 @@ function MateriasActions() {
     errorModificar,
     errorEliminar,
     actualizarArrayIds,
-    obtenerProfesor,
+    obtenerIDsTabla,
+    obtenerFila,
   } = useActions();
 
-  async function setearProfesoresID() {
-    try {
-      const response = await fetch(
-        `https://app-alumnado-latest.onrender.com/alumnado/api/v1/profesores`
-      );
-      if (response.ok) {
-        const data = await response.json();
-        const idsTabla = data.map((fila) => {
-          const idKey = Object.keys(fila).find((key) => key.startsWith("id_"));
-          return idKey ? fila[idKey] : null;
-        });
-        setProfesoresID(idsTabla.filter(Boolean));
-      }
-    } catch (err) {
-      console.error("Error al cargar los IDs de Profesores. ", err);
-    }
-  }
-
-  // Cargar IDs al montar el componente
   useEffect(() => {
-    actualizarArrayIds("materias");
-    setearProfesoresID();
+    const cargarIDs = async () => {
+      actualizarArrayIds("materias");
+      const ids = await obtenerIDsTabla("profesores");
+      setProfesoresID(ids);
+    };
+    cargarIDs();
   }, []);
 
   return (
@@ -54,14 +40,13 @@ function MateriasActions() {
         error={errorAgregar}
         arrayIDs={arrayIDs}
         profesoresID={profesoresID}
-        obtenerProfesor={obtenerProfesor}
+        obtenerFila={obtenerFila}
       />
       <FormModificarMateria
         modificarFila={modificarFila}
         loading={loadingModificar}
         error={errorModificar}
         arrayIDs={arrayIDs}
-        obtenerProfesor={obtenerProfesor}
       />
       <FormEliminarMateria
         eliminarFila={eliminarFila}

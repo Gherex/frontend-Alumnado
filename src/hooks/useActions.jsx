@@ -129,20 +129,39 @@ const useActions = () => {
     }
   };
 
-  async function obtenerProfesor(id) {
+  async function obtenerFila(tabla, id) {
     try {
       const response = await fetch(
-        `https://app-alumnado-latest.onrender.com/alumnado/api/v1/profesores/${id}`
+        `https://app-alumnado-latest.onrender.com/alumnado/api/v1/${tabla}/${id}`
       );
       if (response.ok) {
-        const profesor = await response.json();
-        return profesor;
+        const fila = await response.json();
+        return fila;
       }
     } catch (err) {
       console.error(
-        "Error al intentar obtener un profesor con el ID especificado. ",
+        `Error al intentar obtener una fila de la tabla: ${tabla}, con el ID: ${id} especificado. `,
         err
       );
+    }
+  }
+
+  async function obtenerIDsTabla(tabla) {
+    try {
+      const response = await fetch(
+        `https://app-alumnado-latest.onrender.com/alumnado/api/v1/${tabla}`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        let idsTabla = data.map((fila) => {
+          const idKey = Object.keys(fila).find((key) => key.startsWith("id_"));
+          return idKey ? fila[idKey] : null;
+        });
+        idsTabla = idsTabla.filter(Boolean);
+        return idsTabla;
+      }
+    } catch (err) {
+      console.error(`Error al cargar los IDs de tabla: ${tabla}. `, err);
     }
   }
 
@@ -151,7 +170,8 @@ const useActions = () => {
     modificarFila,
     eliminarFila,
     actualizarArrayIds,
-    obtenerProfesor,
+    obtenerFila,
+    obtenerIDsTabla,
     loadingAgregar,
     loadingModificar,
     loadingEliminar,
