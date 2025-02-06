@@ -1,7 +1,7 @@
 import { useState } from "react";
 import CirculoDeCarga from "../../../CirculoDeCarga";
 
-function FormModificarMateria({ modificarFila, loading, error, arrayIDs }) {
+function FormModificarMateria({ modificarFila, loading, error, materiasIds }) {
   const [selectedId, setSelectedId] = useState("");
   const [profesor, setProfesor] = useState("");
   const [nombre, setNombre] = useState("");
@@ -18,7 +18,10 @@ function FormModificarMateria({ modificarFila, loading, error, arrayIDs }) {
         setProfesor(data.profesor);
       }
     } catch (err) {
-      console.error("Error al obtener los datos del alumno:", err);
+      console.error(
+        `Error al obtener los datos del alumno con ID ${id}. `,
+        err
+      );
     }
   };
 
@@ -71,8 +74,8 @@ function FormModificarMateria({ modificarFila, loading, error, arrayIDs }) {
         className="select-input"
       >
         <option value="">Selecciona un ID</option>
-        {arrayIDs && arrayIDs.length > 0 ? (
-          arrayIDs.map((id) => (
+        {materiasIds && materiasIds.length > 0 ? (
+          materiasIds.map((id) => (
             <option key={id} value={id}>
               {id}
             </option>

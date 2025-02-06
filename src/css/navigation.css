@@ -1,8 +1,15 @@
 .navegacion-principal {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2rem 4rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+@media only screen and (min-width: 1080px) {
+  .navegacion-principal {
+    padding: 2rem 4rem;
+  }
 }
 
 .logo {
@@ -11,6 +18,12 @@
 
 .titulo-app {
   user-select: none;
+  font-size: 1.2rem;
+}
+@media only screen and (min-width: 768px) {
+  .titulo-app {
+    font-size: 2.2rem;
+  }
 }
 
 .boton-login {
@@ -34,10 +47,16 @@
 
 .lista-de-tablas ul {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   list-style: none;
   gap: 5px;
+}
+@media only screen and (min-width: 768px) {
+  .lista-de-tablas ul {
+    flex-direction: row;
+  }
 }
 
 .botones-tablas {

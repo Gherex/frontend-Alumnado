@@ -2,7 +2,7 @@ import { useState } from "react";
 import CirculoDeCarga from "../../../CirculoDeCarga";
 import PersonaForm from "../PersonaForm";
 
-function FormModificarAlumno({ modificarFila, loading, error, arrayIDs }) {
+function FormModificarAlumno({ modificarFila, loading, error, alumnosIds }) {
   const [selectedId, setSelectedId] = useState("");
   const [formData, setFormData] = useState({
     id_alumno: "",
@@ -98,7 +98,10 @@ function FormModificarAlumno({ modificarFila, loading, error, arrayIDs }) {
     try {
       await modificarFila("alumnos", selectedId, newAlumno);
     } catch (err) {
-      console.error("Error al modificar: ", err);
+      console.error(
+        "Error en el submit de Modificar Authenticated Actions Alumno. ",
+        err
+      );
     }
   };
 
@@ -112,8 +115,8 @@ function FormModificarAlumno({ modificarFila, loading, error, arrayIDs }) {
         className="select-input"
       >
         <option value="">Selecciona un ID</option>
-        {arrayIDs && arrayIDs.length > 0 ? (
-          arrayIDs.map((id) => (
+        {alumnosIds && alumnosIds.length > 0 ? (
+          alumnosIds.map((id) => (
             <option key={id} value={id}>
               {id}
             </option>

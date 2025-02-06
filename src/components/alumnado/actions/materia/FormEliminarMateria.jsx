@@ -1,7 +1,13 @@
 import { useState } from "react";
 import CirculoDeCarga from "../../../CirculoDeCarga";
 
-function FormEliminarMateria({ eliminarFila, loading, error, arrayIDs }) {
+function FormEliminarMateria({
+  eliminarFila,
+  loading,
+  error,
+  materiasIds,
+  actualizarMateriasIds,
+}) {
   const [selectedId, setSelectedId] = useState("");
 
   const handleIdChange = async (e) => {
@@ -9,7 +15,7 @@ function FormEliminarMateria({ eliminarFila, loading, error, arrayIDs }) {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Evitar el comportamiento por defecto del formulario
+    e.preventDefault();
 
     if (!selectedId) {
       alert("Selecciona un ID válido");
@@ -18,6 +24,7 @@ function FormEliminarMateria({ eliminarFila, loading, error, arrayIDs }) {
 
     try {
       await eliminarFila("materias", selectedId);
+      actualizarMateriasIds();
     } catch (err) {
       console.error("Error al intentar eliminar una materia. ", err);
     }
@@ -33,8 +40,8 @@ function FormEliminarMateria({ eliminarFila, loading, error, arrayIDs }) {
         className="select-input"
       >
         <option value="">Selecciona un ID</option>
-        {arrayIDs && arrayIDs.length > 0 ? (
-          arrayIDs.map((id) => (
+        {materiasIds && materiasIds.length > 0 ? (
+          materiasIds.map((id) => (
             <option key={id} value={id}>
               {id}
             </option>

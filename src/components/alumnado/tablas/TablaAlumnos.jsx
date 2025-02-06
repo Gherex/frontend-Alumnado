@@ -1,18 +1,11 @@
 import useFetch from "../../../hooks/useFetch";
 import CirculoDeCarga from "../../CirculoDeCarga";
 import "../../../css/tabla.css";
-import useActions from "../../../hooks/useActions";
-import { useEffect } from "react";
 
 function TablaAlumnos() {
-  const { actualizarArrayIds } = useActions();
   const { data, loading, error } = useFetch(
     "https://app-alumnado-latest.onrender.com/alumnado/api/v1/alumnos"
   );
-
-  useEffect(() => {
-    actualizarArrayIds("alumnos");
-  }, [data]);
 
   return (
     <>
@@ -54,7 +47,14 @@ function TablaAlumnos() {
         </div>
       )}
       {error && (
-        <p style={{ textAlign: "center", color: "red", margin: "1rem" }}>
+        <p
+          style={{
+            textAlign: "center",
+            color: "red",
+            margin: "1rem",
+            padding: "2rem 0",
+          }}
+        >
           {error}
         </p>
       )}

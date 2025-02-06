@@ -1,33 +1,42 @@
 import useActions from "../../../../hooks/useActions";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import FormAgregarProfesor from "./FormAgregarProfesor";
 import FormModificarProfesor from "./FormModificarProfesor";
 import FormEliminarProfesor from "./FormEliminarProfesor";
 
 function ProfesoresActions() {
+  const [profesoresIds, setProfesoresIds] = useState([]);
+
   const {
     agregarFila,
     modificarFila,
     eliminarFila,
-    arrayIDs,
+    getIdsTabla,
     loadingAgregar,
     loadingModificar,
     loadingEliminar,
     errorAgregar,
     errorModificar,
     errorEliminar,
-    actualizarArrayIds,
   } = useActions();
+
+  async function actualizarProfesoresIds() {
+    const profeIds = await getIdsTabla("profesores");
+    if (profeIds) {
+      setProfesoresIds(profeIds);
+    }
+  }
 
   // Cargar IDs al montar el componente
   useEffect(() => {
-    actualizarArrayIds("profesores");
+    actualizarProfesoresIds();
   }, []);
 
   return (
     <div className="actions-container">
       <FormAgregarProfesor
         agregarFila={agregarFila}
+        actualizarProfesoresIds={actualizarProfesoresIds}
         loading={loadingAgregar}
         error={errorAgregar}
       />
@@ -35,13 +44,14 @@ function ProfesoresActions() {
         modificarFila={modificarFila}
         loading={loadingModificar}
         error={errorModificar}
-        arrayIDs={arrayIDs}
+        profesoresIds={profesoresIds}
       />
       <FormEliminarProfesor
         eliminarFila={eliminarFila}
+        actualizarProfesoresIds={actualizarProfesoresIds}
         loading={loadingEliminar}
         error={errorEliminar}
-        arrayIDs={arrayIDs}
+        profesoresIds={profesoresIds}
       />
     </div>
   );

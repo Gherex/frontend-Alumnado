@@ -2,7 +2,12 @@ import { useState } from "react";
 import CirculoDeCarga from "../../../CirculoDeCarga";
 import PersonaForm from "../PersonaForm";
 
-function FormModificarProfesor({ modificarFila, loading, error, arrayIDs }) {
+function FormModificarProfesor({
+  modificarFila,
+  loading,
+  error,
+  profesoresIds,
+}) {
   const [selectedId, setSelectedId] = useState("");
   const [formData, setFormData] = useState({
     id_profesor: "",
@@ -40,7 +45,10 @@ function FormModificarProfesor({ modificarFila, loading, error, arrayIDs }) {
         setFormData(transformedData);
       }
     } catch (err) {
-      console.error("Error al obtener los datos del profesor:", err);
+      console.error(
+        `Error al obtener los datos del profesor con id ${id}`,
+        err
+      );
     }
   };
 
@@ -98,7 +106,7 @@ function FormModificarProfesor({ modificarFila, loading, error, arrayIDs }) {
     try {
       await modificarFila("profesores", selectedId, newProfesor);
     } catch (err) {
-      console.error("Error al modificar: ", err);
+      console.error(`Error al modificar Profesor con id ${selectedId} `, err);
     }
   };
 
@@ -112,8 +120,8 @@ function FormModificarProfesor({ modificarFila, loading, error, arrayIDs }) {
         className="select-input"
       >
         <option value="">Selecciona un ID</option>
-        {arrayIDs && arrayIDs.length > 0 ? (
-          arrayIDs.map((id) => (
+        {profesoresIds && profesoresIds.length > 0 ? (
+          profesoresIds.map((id) => (
             <option key={id} value={id}>
               {id}
             </option>

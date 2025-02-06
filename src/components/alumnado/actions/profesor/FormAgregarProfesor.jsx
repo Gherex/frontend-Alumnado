@@ -2,7 +2,12 @@ import { useState } from "react";
 import PersonaForm from "../PersonaForm";
 import CirculoDeCarga from "../../../CirculoDeCarga";
 
-function FormAgregarProfesor({ agregarFila, loading, error }) {
+function FormAgregarProfesor({
+  agregarFila,
+  loading,
+  error,
+  actualizarProfesoresIds,
+}) {
   const [formData, setFormData] = useState({
     nombre: "",
     apellido: "",
@@ -37,8 +42,12 @@ function FormAgregarProfesor({ agregarFila, loading, error }) {
 
     try {
       await agregarFila("profesores", newProfesor);
+      actualizarProfesoresIds();
     } catch (err) {
-      console.error("Error al agregar:", err);
+      console.error(
+        "Error en el submit de Agregar Authenticated Actions Profesores. ",
+        err
+      );
     }
   };
 

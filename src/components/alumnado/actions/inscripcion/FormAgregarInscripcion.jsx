@@ -5,9 +5,10 @@ function FormAgregarInscripcion({
   agregarFila,
   loading,
   error,
-  obtenerFila,
-  alumnosID,
-  materiasID,
+  getFila,
+  actualizarInscripcionesIds,
+  alumnosIds,
+  materiasIds,
 }) {
   const [selectedAlumnoId, setSelectedAlumnoId] = useState("");
   const [selectedMateriaId, setSelectedMateriaId] = useState("");
@@ -25,8 +26,8 @@ function FormAgregarInscripcion({
       return;
     }
 
-    const alumno = await obtenerFila("alumnos", selectedAlumnoId);
-    const materia = await obtenerFila("materias", selectedMateriaId);
+    const alumno = await getFila("alumnos", selectedAlumnoId);
+    const materia = await getFila("materias", selectedMateriaId);
 
     // Construir el objeto Materia
     const newInscripcion = {
@@ -37,6 +38,7 @@ function FormAgregarInscripcion({
 
     try {
       await agregarFila("inscripciones", newInscripcion);
+      actualizarInscripcionesIds();
     } catch (err) {
       console.error("Error al intentar agregar una nueva inscripción. ", err);
     }
@@ -71,8 +73,8 @@ function FormAgregarInscripcion({
         className="select-input"
       >
         <option value="">Selecciona un ID de Alumno</option>
-        {alumnosID && alumnosID.length > 0 ? (
-          alumnosID.map((id) => (
+        {alumnosIds && alumnosIds.length > 0 ? (
+          alumnosIds.map((id) => (
             <option key={id} value={id}>
               {id}
             </option>
@@ -91,8 +93,8 @@ function FormAgregarInscripcion({
         className="select-input"
       >
         <option value="">Selecciona un ID de Materia</option>
-        {materiasID && materiasID.length > 0 ? (
-          materiasID.map((id) => (
+        {materiasIds && materiasIds.length > 0 ? (
+          materiasIds.map((id) => (
             <option key={id} value={id}>
               {id}
             </option>

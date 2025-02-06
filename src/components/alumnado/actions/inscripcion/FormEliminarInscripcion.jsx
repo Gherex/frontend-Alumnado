@@ -1,7 +1,13 @@
 import { useState } from "react";
 import CirculoDeCarga from "../../../CirculoDeCarga";
 
-function FormEliminarInscripcion({ eliminarFila, loading, error, arrayIDs }) {
+function FormEliminarInscripcion({
+  eliminarFila,
+  loading,
+  error,
+  inscripcionesIds,
+  actualizarInscripcionesIds,
+}) {
   const [selectedId, setSelectedId] = useState("");
 
   const handleIdChange = async (e) => {
@@ -18,6 +24,7 @@ function FormEliminarInscripcion({ eliminarFila, loading, error, arrayIDs }) {
 
     try {
       await eliminarFila("inscripciones", selectedId);
+      actualizarInscripcionesIds();
     } catch (err) {
       console.error("Error al intentar eliminar una inscripcion. ", err);
     }
@@ -33,8 +40,8 @@ function FormEliminarInscripcion({ eliminarFila, loading, error, arrayIDs }) {
         className="select-input"
       >
         <option value="">Selecciona un ID</option>
-        {arrayIDs && arrayIDs.length > 0 ? (
-          arrayIDs.map((id) => (
+        {inscripcionesIds && inscripcionesIds.length > 0 ? (
+          inscripcionesIds.map((id) => (
             <option key={id} value={id}>
               {id}
             </option>

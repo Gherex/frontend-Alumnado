@@ -5,54 +5,66 @@ import FormModificarMateria from "./FormModificarMateria";
 import FormEliminarMateria from "./FormEliminarMateria";
 
 function MateriasActions() {
-  const [profesoresID, setProfesoresID] = useState([]);
+  const [materiasIds, setMateriasIds] = useState([]);
+  const [profesoresIds, setProfesoresIds] = useState([]);
 
   const {
     agregarFila,
     modificarFila,
     eliminarFila,
-    arrayIDs,
+    getIdsTabla,
+    getFila,
     loadingAgregar,
     loadingModificar,
     loadingEliminar,
     errorAgregar,
     errorModificar,
     errorEliminar,
-    actualizarArrayIds,
-    obtenerIDsTabla,
-    obtenerFila,
   } = useActions();
 
+  async function actualizarMateriasIds() {
+    const matIds = await getIdsTabla("materias");
+    if (matIds) {
+      setMateriasIds(matIds);
+    }
+  }
+
+  async function actualizarProfesoresIds() {
+    const profeIds = await getIdsTabla("profesores");
+    if (profeIds) {
+      setProfesoresIds(profeIds);
+    }
+  }
+
+  // Cargar IDs al montar el componente
   useEffect(() => {
-    const cargarIDs = async () => {
-      actualizarArrayIds("materias");
-      const ids = await obtenerIDsTabla("profesores");
-      setProfesoresID(ids);
-    };
-    cargarIDs();
+    actualizarMateriasIds();
+    actualizarProfesoresIds();
   }, []);
 
   return (
     <div className="actions-container">
       <FormAgregarMateria
         agregarFila={agregarFila}
+        getFila={getFila}
+        actualizarMateriasIds={actualizarMateriasIds}
         loading={loadingAgregar}
         error={errorAgregar}
-        arrayIDs={arrayIDs}
-        profesoresID={profesoresID}
-        obtenerFila={obtenerFila}
+        materiasIds={materiasIds}
+        profesoresIds={profesoresIds}
       />
       <FormModificarMateria
         modificarFila={modificarFila}
         loading={loadingModificar}
         error={errorModificar}
-        arrayIDs={arrayIDs}
+        materiasIds={materiasIds}
       />
       <FormEliminarMateria
         eliminarFila={eliminarFila}
+        actualizarMateriasIds={actualizarMateriasIds}
         loading={loadingEliminar}
         error={errorEliminar}
-        arrayIDs={arrayIDs}
+        materiasIds={materiasIds}
       />
     </div>
   );

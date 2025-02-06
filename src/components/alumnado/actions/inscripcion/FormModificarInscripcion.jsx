@@ -5,10 +5,10 @@ function FormModificarInscripcion({
   modificarFila,
   loading,
   error,
-  obtenerFila,
-  alumnosID,
-  materiasID,
-  arrayIDs,
+  getFila,
+  alumnosIds,
+  materiasIds,
+  inscripcionesIds,
 }) {
   const [selectedInscripcionId, setSelectedInscripcionId] = useState("");
   const [selectedAlumnoId, setSelectedAlumnoId] = useState("");
@@ -27,8 +27,8 @@ function FormModificarInscripcion({
       return;
     }
 
-    const alumno = await obtenerFila("alumnos", selectedAlumnoId);
-    const materia = await obtenerFila("materias", selectedMateriaId);
+    const alumno = await getFila("alumnos", selectedAlumnoId);
+    const materia = await getFila("materias", selectedMateriaId);
 
     // Construir el objeto Materia
     const updatedInscripcion = {
@@ -51,8 +51,7 @@ function FormModificarInscripcion({
 
   const handleInscripcionIdChange = async (e) => {
     setSelectedInscripcionId(e.target.value);
-    const fila = await obtenerFila("inscripciones", e.target.value);
-    console.log(fila);
+    const fila = await getFila("inscripciones", e.target.value);
     if (fila) {
       setSelectedAlumnoId(fila.alumno.id_alumno);
       setSelectedMateriaId(fila.materia.id_materia);
@@ -78,8 +77,8 @@ function FormModificarInscripcion({
         className="select-input"
       >
         <option value="">Selecciona un ID de Inscripción</option>
-        {arrayIDs && arrayIDs.length > 0 ? (
-          arrayIDs.map((id) => (
+        {inscripcionesIds && inscripcionesIds.length > 0 ? (
+          inscripcionesIds.map((id) => (
             <option key={id} value={id}>
               {id}
             </option>
@@ -109,8 +108,8 @@ function FormModificarInscripcion({
         className="select-input"
       >
         <option value="">Selecciona un ID de Alumno</option>
-        {alumnosID && alumnosID.length > 0 ? (
-          alumnosID.map((id) => (
+        {alumnosIds && alumnosIds.length > 0 ? (
+          alumnosIds.map((id) => (
             <option key={id} value={id}>
               {id}
             </option>
@@ -129,8 +128,8 @@ function FormModificarInscripcion({
         className="select-input"
       >
         <option value="">Selecciona un ID de Materia</option>
-        {materiasID && materiasID.length > 0 ? (
-          materiasID.map((id) => (
+        {materiasIds && materiasIds.length > 0 ? (
+          materiasIds.map((id) => (
             <option key={id} value={id}>
               {id}
             </option>

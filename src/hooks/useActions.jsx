@@ -10,23 +10,27 @@ const useActions = () => {
   const [errorModificar, setErrorModificar] = useState(null);
   const [errorEliminar, setErrorEliminar] = useState(null);
 
-  const [arrayIDs, setArrayIDs] = useState([]);
-
-  const actualizarArrayIds = async (tabla) => {
+  const getIdsTabla = async (tabla) => {
     try {
       const response = await fetch(
         `https://app-alumnado-latest.onrender.com/alumnado/api/v1/${tabla}`
       );
       if (response.ok) {
         const data = await response.json();
+        // Crear el prefijo a partir de los primeros 3 caracteres del nombre de la tabla
+        const prefix = `id_${tabla.slice(0, 3)}`.toLowerCase(); // Ej: "alumnos" -> "id_alu"
         const idsTabla = data.map((fila) => {
-          const idKey = Object.keys(fila).find((key) => key.startsWith("id_"));
+          // Busca la clave que comience con ese prefijo
+          const idKey = Object.keys(fila).find((key) => key.startsWith(prefix));
           return idKey ? fila[idKey] : null;
         });
-        setArrayIDs(idsTabla.filter(Boolean));
+        return idsTabla.filter(Boolean);
       }
     } catch (err) {
-      console.error("Error al actualizar IDs:", err);
+      console.error(
+        `Error al intentar obtener los IDs de tabla ${tabla}.`,
+        err
+      );
     }
   };
 
@@ -47,14 +51,14 @@ const useActions = () => {
           body: JSON.stringify(nuevaFila),
         }
       );
-
       if (!response.ok) {
-        throw new Error("Error al agregar la fila. " + response.statusText);
+        throw new Error(
+          `Error al intentar agregar la fila en tabla ${tabla}. ` +
+            response.statusText
+        );
       }
-
       const data = await response.json();
-      console.log("Fila agregada exitosamente: ", data);
-      actualizarArrayIds(tabla);
+      console.log(`Fila agregada exitosamente en tabla ${tabla}.`, data);
       return data;
     } catch (err) {
       setErrorAgregar(err.message);
@@ -83,12 +87,17 @@ const useActions = () => {
       );
 
       if (!response.ok) {
-        throw new Error("Error al modificar la fila. " + response.statusText);
+        throw new Error(
+          `Error al intentar modificar la fila ${id} de la tabla ${tabla}. ` +
+            response.statusText
+        );
       }
 
       const data = await response.json();
-      console.log("Fila modificada exitosamente:", data);
-      actualizarArrayIds(tabla);
+      console.log(
+        `Fila ${id} de la tabla ${tabla} modificada exitosamente. `,
+        data
+      );
       return data;
     } catch (err) {
       setErrorModificar(err.message);
@@ -115,11 +124,15 @@ const useActions = () => {
       );
 
       if (!response.ok) {
-        throw new Error("Error al eliminar la fila. " + response.statusText);
+        throw new Error(
+          `Error al intentar eliminar la fila ${id} de la tabla ${tabla}. ` +
+            response.statusText
+        );
       }
 
-      console.log(`Fila con ID ${id} eliminada exitosamente.`);
-      actualizarArrayIds(tabla);
+      console.log(
+        `Fila con ID ${id} de la tabla ${tabla} eliminada exitosamente. `
+      );
       return true;
     } catch (err) {
       setErrorEliminar(err.message);
@@ -129,7 +142,7 @@ const useActions = () => {
     }
   };
 
-  async function obtenerFila(tabla, id) {
+  async function getFila(tabla, id) {
     try {
       const response = await fetch(
         `https://app-alumnado-latest.onrender.com/alumnado/api/v1/${tabla}/${id}`
@@ -140,28 +153,9 @@ const useActions = () => {
       }
     } catch (err) {
       console.error(
-        `Error al intentar obtener una fila de la tabla: ${tabla}, con el ID: ${id} especificado. `,
+        `Error al intentar obtener la fila ${id} de la tabla ${tabla}. `,
         err
       );
-    }
-  }
-
-  async function obtenerIDsTabla(tabla) {
-    try {
-      const response = await fetch(
-        `https://app-alumnado-latest.onrender.com/alumnado/api/v1/${tabla}`
-      );
-      if (response.ok) {
-        const data = await response.json();
-        let idsTabla = data.map((fila) => {
-          const idKey = Object.keys(fila).find((key) => key.startsWith("id_"));
-          return idKey ? fila[idKey] : null;
-        });
-        idsTabla = idsTabla.filter(Boolean);
-        return idsTabla;
-      }
-    } catch (err) {
-      console.error(`Error al cargar los IDs de tabla: ${tabla}. `, err);
     }
   }
 
@@ -169,16 +163,14 @@ const useActions = () => {
     agregarFila,
     modificarFila,
     eliminarFila,
-    actualizarArrayIds,
-    obtenerFila,
-    obtenerIDsTabla,
+    getIdsTabla,
+    getFila,
     loadingAgregar,
     loadingModificar,
     loadingEliminar,
     errorAgregar,
     errorModificar,
     errorEliminar,
-    arrayIDs,
   };
 };
 

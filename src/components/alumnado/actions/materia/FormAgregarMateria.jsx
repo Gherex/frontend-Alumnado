@@ -5,8 +5,9 @@ function FormAgregarMateria({
   agregarFila,
   loading,
   error,
-  profesoresID,
-  obtenerFila,
+  profesoresIds,
+  getFila,
+  actualizarMateriasIds,
 }) {
   const [selectedId, setSelectedId] = useState("");
   const [nombre, setNombre] = useState("");
@@ -16,14 +17,14 @@ function FormAgregarMateria({
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Evitar el comportamiento por defecto del formulario
+    e.preventDefault();
 
     if (!selectedId) {
       alert("Selecciona un ID válido");
       return;
     }
 
-    const profesor = await obtenerFila("profesores", selectedId);
+    const profesor = await getFila("profesores", selectedId);
 
     // Construir el objeto Materia
     const newMateria = {
@@ -31,10 +32,9 @@ function FormAgregarMateria({
       profesor: profesor,
     };
 
-    console.log(newMateria);
-
     try {
       await agregarFila("materias", newMateria);
+      actualizarMateriasIds();
     } catch (err) {
       console.error("Error al agregar una nueva materia. ", err);
     }
@@ -65,8 +65,8 @@ function FormAgregarMateria({
         className="select-input"
       >
         <option value="">Selecciona un ID de Profesor</option>
-        {profesoresID && profesoresID.length > 0 ? (
-          profesoresID.map((id) => (
+        {profesoresIds && profesoresIds.length > 0 ? (
+          profesoresIds.map((id) => (
             <option key={id} value={id}>
               {id}
             </option>

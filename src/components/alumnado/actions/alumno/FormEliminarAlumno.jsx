@@ -1,7 +1,13 @@
 import { useState } from "react";
 import CirculoDeCarga from "../../../CirculoDeCarga";
 
-function FormEliminarAlumno({ eliminarFila, loading, error, arrayIDs }) {
+function FormEliminarAlumno({
+  eliminarFila,
+  loading,
+  error,
+  alumnosIds,
+  actualizarAlumnosIds,
+}) {
   const [selectedId, setSelectedId] = useState("");
 
   const handleIdChange = (e) => {
@@ -17,8 +23,12 @@ function FormEliminarAlumno({ eliminarFila, loading, error, arrayIDs }) {
     try {
       await eliminarFila("alumnos", selectedId);
       setSelectedId(""); // Resetear selección
+      actualizarAlumnosIds();
     } catch (err) {
-      console.error("Error al eliminar:", err);
+      console.error(
+        "Error en el submit de Eliminar Authenticated Action Alumno",
+        err
+      );
     }
   };
 
@@ -32,8 +42,8 @@ function FormEliminarAlumno({ eliminarFila, loading, error, arrayIDs }) {
         className="select-input"
       >
         <option value="">Selecciona un ID</option>
-        {arrayIDs && arrayIDs.length > 0 ? (
-          arrayIDs.map((id) => (
+        {alumnosIds && alumnosIds.length > 0 ? (
+          alumnosIds.map((id) => (
             <option key={id} value={id}>
               {id}
             </option>

@@ -52,7 +52,11 @@ function TablaInscripciones() {
           </table>
         </div>
       )}
-      {error && <p style={{ textAlign: "center", color: "red" }}>{error}</p>}
+      {error && (
+        <p style={{ textAlign: "center", color: "red", padding: "2rem 0" }}>
+          {error}
+        </p>
+      )}
     </>
   );
 }

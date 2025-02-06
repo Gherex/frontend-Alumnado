@@ -1,23 +1,43 @@
 @import "partials/variables";
+@import "partials/breakpoints";
+
+.tabla {
+  width: 100%;
+  overflow-x: auto; // Permite el scroll horizontal
+  -webkit-overflow-scrolling: touch; // Mejora la experiencia de scroll en dispositivos táctiles
+}
 
 table {
-  margin: 0 auto 1.5rem;
   border-collapse: collapse;
-  width: 80%;
-  max-width: 1000px;
+  table-layout: auto; // Distribuye el ancho equitativamente
+  width: 100%; // En móviles se usa el 100% del ancho de la pantalla
+  @include display-large {
+    margin: 0 auto 1.5rem;
+    border-collapse: collapse;
+    width: 80%;
+    max-width: 1000px;
+  }
 }
 
 table th,
 table td {
-  border: 1px solid $blanco;
-  padding: 8px;
   text-align: center;
+  border: 1px solid $blanco;
+  padding: 10px 0;
+  @include display-large {
+    padding: 8px;
+  }
 }
 
 table th {
   background-color: $violeta-espacio;
   font-weight: bold;
   color: $blanco;
+  overflow: hidden;
+}
+
+table td {
+  overflow: hidden;
 }
 
 table tr:nth-child(even) {

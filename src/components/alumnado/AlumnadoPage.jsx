@@ -10,7 +10,7 @@ function AlumnadoPage() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const isAdmin = role === "admin" && localStorage.getItem("jwtToken"); // ← Verificar token
+  const isAdmin = role === "admin" && Boolean(localStorage.getItem("jwtToken")); // ← Verificar token
 
   const handleLogout = () => {
     logout(); // Limpia la autenticación
