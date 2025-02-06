@@ -8,7 +8,7 @@
 }
 @media only screen and (min-width: 1080px) {
   .navegacion-principal {
-    padding: 2rem 4rem;
+    padding: 1rem 3rem;
   }
 }
 
@@ -78,11 +78,12 @@
 }
 
 footer {
+  bottom: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
-  padding: 1rem 0;
+  padding: 2rem 0 1rem;
 }
 
 footer a {

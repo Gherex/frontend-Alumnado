@@ -23,9 +23,9 @@ table th,
 table td {
   text-align: center;
   border: 1px solid $blanco;
-  padding: 10px 0;
+  padding: 8px;
   @include display-large {
-    padding: 8px;
+    padding: 5px;
   }
 }
 
