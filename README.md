@@ -83,10 +83,10 @@ Cada una con sus respectivas relaciones. Se usa `snake_case` en todas las tablas
 ⚠️ Asegurate de que la URL del backend esté bien configurada en los archivos de entorno o dentro del código para que el frontend pueda comunicarse con la API correctamente.
 
 🔐 Acceso
-Invitado: puede realizar operaciones GET.
-Administrador: puede realizar POST, PUT, DELETE y GET.
-Para acceder como invitado, simplemente hacé clic en el botón "Acceder como invitado".
-Para acceder como admin, ingresá usuario y contraseña válidos. La verificación se hace en el backend comparando el hash.
+- Invitado: puede realizar operaciones GET.
+- Administrador: puede realizar POST, PUT, DELETE y GET.
+- Para acceder como invitado, simplemente hacé clic en el botón "Acceder como invitado".
+- Para acceder como admin, ingresá usuario y contraseña válidos. La verificación se hace en el backend comparando el hash.
 
 ## ✍️ Autor
 **Germán Lagger**  
