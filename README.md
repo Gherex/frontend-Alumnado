@@ -47,7 +47,7 @@ El sistema cuenta con las siguientes entidades:
 
 Cada una con sus respectivas relaciones. Se usa `snake_case` en todas las tablas y columnas.
 
-![Diagrama ER](https://github.com/Gherex/API-Alumnado/blob/main/images/diagramaER.png)
+![Diagrama ER](images/diagrama-ER.png)
 
 ## 📷 Capturas de pantalla
 
