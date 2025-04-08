@@ -52,13 +52,13 @@ Cada una con sus respectivas relaciones. Se usa `snake_case` en todas las tablas
 ## 📷 Capturas de pantalla
 
 ### Login
-![Login](https://github.com/Gherex/frontend-Alumnado/images/login.png)
+![Login](images/admin-panel.png)
 
 ### Vista principal (invitado)
-![Vista principal](https://github.com/Gherex/frontend-Alumnado/images/visualizacion-tablas.png)
+![Vista principal](images/visualizacion-tablas.png)
 
 ### Panel de administrador
-![Alta alumno](https://github.com/Gherex/frontend-Alumnado/images/admin-panel.png)
+![Alta alumno](images/admin-panel.png)
 
 ## 🚀 Cómo ejecutar el proyecto
 
