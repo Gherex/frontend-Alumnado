@@ -52,7 +52,7 @@ Cada una con sus respectivas relaciones. Se usa `snake_case` en todas las tablas
 ## 📷 Capturas de pantalla
 
 ### Login
-![Login](images/login.png)
+![Login](images/login-alumnado.png)
 
 ### Vista principal (invitado)
 ![Vista principal](images/visualizacion-tablas.png)
